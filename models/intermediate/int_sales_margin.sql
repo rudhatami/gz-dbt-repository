@@ -3,12 +3,12 @@
 -- FULL JOIN {{ref ("stg_raw__sales")}} s
 -- on p.products_id = s.products_id
 
-SELECT 
-ROUND((quantity * purchase_price),2) AS purchase_cost,
-ROUND((revenue - (quantity * purchase_price)),2) AS margin
-FROM {{ref ("stg_raw__sales")}} s
-FULL JOIN {{ref ("stg_raw__product")}} p
-on s.products_id = p.products_id
+-- SELECT 
+-- ROUND((quantity * purchase_price),2) AS purchase_cost,
+-- ROUND((revenue - (quantity * purchase_price)),2) AS margin
+-- FROM {{ref ("stg_raw__sales")}} s
+-- FULL JOIN {{ref ("stg_raw__product")}} p
+-- on s.products_id = p.products_id
 
 -- WITH sub AS (
 -- SELECT 
@@ -27,8 +27,11 @@ on s.products_id = p.products_id
 
 
 SELECT 
+s.date_date,
+s.orders_id,
 ROUND((quantity * purchase_price),2) AS purchase_cost,
 ROUND((revenue - (quantity * purchase_price)),2) AS margin
 FROM {{ref ("stg_raw__sales")}} s
 FULL JOIN {{ref ("stg_raw__product")}} p
 on s.products_id = p.products_id
+

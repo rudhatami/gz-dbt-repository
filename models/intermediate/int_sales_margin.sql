@@ -27,8 +27,11 @@
 
 
 SELECT 
-s.date_date,
+quantity,
+purchase_price,
+revenue,
 s.orders_id,
+s.date_date,
 ROUND((quantity * purchase_price),2) AS purchase_cost,
 ROUND((revenue - (quantity * purchase_price)),2) AS margin
 FROM {{ref ("stg_raw__sales")}} s

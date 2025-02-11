@@ -6,7 +6,47 @@ sources:
     tables:
       - name: product
         identifier: raw_gz_product
+        description: product list of Greenweez / one product_id per row with the respective purchase_price of that product
+        columns: 
+          - name: product_id
+            description: unique product_id used as Primary Key
+            test: 
+              - unique 
+          - name: purchase_price
+            description: the purchase price of the respective product
       - name: sales
         identifier: raw_gz_sales
+        description: sales of Greenweez / we have one row per product_id found in each orders_id
+        tests: 
+          - unique:
+              column_name: "(orders_id || '-' || pdt_id)"
+        loaded_at_field: "CAST (date_date AS TIMESTAMP)"
+        freshness: 
+          warn_after:
+            period: day
+            count: 90
+        columns:
+          - name: date_date
+            description: date of purchase
+          - name: orders_id
+            description: the id of the order made 
+          - name: products_id
+            description: listing of each item ordered in the placed order / can be several product_ids per order_id
+          - name: revenue
+            description: the revenue generated per product sold each orders
+          - name: quantity
+            description: the quantity that each product was ordered in each order
       - name: ship
         identifier: raw_gz_ship
+        description: one row per order_id / with its respecctive shipping costs and shipping revenues of fulfilling the order
+        columns:
+          - name: orders_id
+            description: the unique id of every order placed / one row per order
+            test:
+              - unique
+          - name: shipping_fee
+            description: the shipping fee each customer pays us to fulfill their order
+          - name: logcost
+            description: the logistic costs that the company pays for fulfilling each order
+          - name: ship_cost
+            description: the shipping costs that the company pays for fulfilling each order

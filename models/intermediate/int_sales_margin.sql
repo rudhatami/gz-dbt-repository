@@ -34,8 +34,11 @@ s.revenue,
 s.orders_id,
 s.date_date,
 ROUND((s.quantity * p.purchase_price),2) AS purchase_cost,
-ROUND((s.revenue - (s.quantity * p.purchase_price)),2) AS margin
+ROUND((s.revenue - (s.quantity * p.purchase_price)),2) AS margin,
+{{ margin_percent( 's.revenue', 'p.purchase_price * s.quantity',2) }} AS margin_percent
 FROM {{ref ("stg_raw__sales")}} s
 LEFT JOIN {{ref ("stg_raw__product")}} p
 on s.products_id = p.products_id
+
+
 

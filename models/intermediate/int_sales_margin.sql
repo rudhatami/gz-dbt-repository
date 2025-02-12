@@ -27,14 +27,15 @@
 
 
 SELECT 
-quantity,
-purchase_price,
-revenue,
+s.quantity,
+p.purchase_price,
+p.products_id,
+s.revenue,
 s.orders_id,
 s.date_date,
-ROUND((quantity * purchase_price),2) AS purchase_cost,
-ROUND((revenue - (quantity * purchase_price)),2) AS margin
+ROUND((s.quantity * p.purchase_price),2) AS purchase_cost,
+ROUND((s.revenue - (s.quantity * p.purchase_price)),2) AS margin
 FROM {{ref ("stg_raw__sales")}} s
-FULL JOIN {{ref ("stg_raw__product")}} p
+LEFT JOIN {{ref ("stg_raw__product")}} p
 on s.products_id = p.products_id
 

@@ -10,13 +10,10 @@ renamed as (
 
     select
         products_id,
-        purchse_price
+        CAST(purchse_price AS FLOAT64) AS purchase_price
 
     from source
 
 )
 
-select 
-       CAST(purchse_price AS FLOAT64) AS purchase_price
-       , products_id
- from renamed
+select * from renamed

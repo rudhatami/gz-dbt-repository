@@ -4,6 +4,113 @@ sources:
   - name: raw
     schema: gz_raw_data
     tables:
+      - name: adwords
+        identifier: raw_gz_adwords
+        description: raw data ads on adwords
+        columns:
+           - name: date_date
+             tests:
+              - not_null
+           - name: paid_source
+             tests:
+              - not_null
+           - name: campaign_key
+             tests:
+              - not_null
+           - name: camPGN_name
+             tests:
+              - not_null
+           - name: ads_cost
+             tests:
+              - not_null
+           - name: impression
+             tests:
+              - not_null
+           - name: click
+             tests:
+              - not_null
+           - name: "(date_date ||'-'|| campaign_key)"
+             description: Primary Key
+             tests:
+              - unique
+      - name: bing
+        identifier: raw_gz_bing
+        description: raw data ads on bing
+        columns:
+          - name: date_date
+            tests:
+              - not_null
+          - name: paid_source
+            tests:
+              - not_null
+          - name: campaign_key
+            tests:
+              - not_null
+          - name: camPGN_name
+            tests:
+              - not_null
+          - name: ads_cost
+            tests:
+              - not_null
+          - name: impression
+            tests:
+              - not_null
+          - name: click
+            tests:
+              - not_null
+          - name: "(date_date ||'-'|| campaign_key)"
+            description: Primary Key
+            tests:
+              - unique
+      - name: criteo
+        identifier: raw_gz_criteo
+        description: raw data ads on criteo
+        columns:
+           - name: date_date
+             tests:
+              - not_null
+           - name: paid_source
+             tests:
+              - not_null
+           - name: campaign_key
+             tests:
+              - not_null
+           - name: camPGN_name
+             tests:
+              - not_null
+           - name: ads_cost
+             tests:
+              - not_null
+           - name: impression
+             tests:
+              - not_null
+           - name: click
+             tests:
+              - not_null
+           - name: "(date_date ||'-'|| campaign_key)"
+             description: Primary Key
+             tests:
+              - unique
+      - name: facebook
+        identifier: raw_gz_facebook
+        description: raw data ads on facebook
+        tests:
+         - unique: 
+              column_name: "(date_date ||'-'|| campaign_key)"
+         - not_null:
+              column_name: date_date
+         - not_null:
+              column_name: paid_source
+         - not_null:
+              column_name: campaign_key
+         - not_null:
+              column_name: camPGN_name
+         - not_null:
+              column_name: ads_cost
+         - not_null:
+              column_name: impression
+         - not_null:
+              column_name: click
       - name: product
         identifier: raw_gz_product
         description: product list of Greenweez / one product_id per row with the respective purchase_price of that product
@@ -94,3 +201,70 @@ models:
         description: see column's name!
         tests:
           - not_null
+  - name: int_campaigns
+    description: joined all ads tables together
+    tests:
+         - unique: 
+              column_name: "(date_date ||'-'|| campaign_key)"
+         - not_null:
+              column_name: date_date
+         - not_null:
+              column_name: paid_source
+         - not_null:
+              column_name: campaign_key
+         - not_null:
+              column_name: campaign_name
+         - not_null:
+              column_name: ads_cost
+         - not_null:
+              column_name: impression
+         - not_null:
+              column_name: click
+  - name: int_campaigns_day
+    description: all campaign data per day
+    tests:
+         - unique: 
+              column_name: date_date
+         - not_null:
+              column_name: date_date
+         - not_null:
+              column_name: ads_cost_per_day
+         - not_null:
+              column_name: ads_impression_per_day
+         - not_null:
+              column_name: ads_clicks_per_day
+  - name: finance_campaigns_day
+    description: all financial data joined with all campaigns data per day
+    tests:
+      - unique: 
+          column_name: date_date
+      - not_null:
+              column_name: date_date
+      - not_null:
+              column_name: average_basket
+      - not_null:
+              column_name: operational_margin_per_day
+      - not_null:
+              column_name: ads_margin
+      - not_null:
+              column_name: total_quantity_sold_per_day
+      - not_null:
+              column_name: ads_cost_per_day
+      - not_null:
+              column_name: ads_impression_per_day
+      - not_null:
+              column_name: ads_clicks_per_day
+      - not_null:
+              column_name: revenue_per_day
+      - not_null:
+              column_name: purchase_cost_per_day
+      - not_null:
+              column_name: margin_per_day
+      - not_null:
+              column_name: shipping_fee_per_day
+      - not_null:
+              column_name: logcost_per_day
+      - not_null:
+              column_name: ship_cost
+
+      

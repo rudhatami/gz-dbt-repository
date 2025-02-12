@@ -43,5 +43,5 @@ models:
       +materialized: view
     mart:
       +materialized: table
-      finance_days:
+      finance:
         +schema: finance
